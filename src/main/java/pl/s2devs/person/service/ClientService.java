@@ -2,38 +2,38 @@ package pl.s2devs.person.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.s2devs.person.model.Client;
 import pl.s2devs.person.model.Person;
+import pl.s2devs.person.repository.ClientRepository;
 import pl.s2devs.person.repository.PersonRepository;
 
-import static pl.s2devs.shared.response.RegistrationResponse.Code;
-
 /**
- * Created by rafal on 14.11.17.
+ * Created by rafal on 01.12.17.
  */
 @Service
 public class ClientService {
 
     @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
     private PersonRepository personRepository;
 
-    public PersonRepository getClientRepository() {
-        return personRepository;
-    }
+    public Client registerClient(Long personId) {
+        Person person = personRepository.findByPersonId(personId);
+        Client client = clientRepository.findByPerson(person);
 
-    public Code registerNewClient(Person Person) {
-        Person nullable = personRepository.findByEmail(Person.getEmail());
-
-        if(emailAddressIsAvailable(nullable)) {
-            personRepository.save(Person);
-            return Code.PERSON_REGISTERED;
+        if(isAlreadyClient(client)) {
+            return client;
         } else {
-            return Code.EMAIL_TAKEN;
+            client = new Client();
+            client.setPerson(person);
+            clientRepository.save(client);
+            return client;
         }
-
     }
 
-    private boolean emailAddressIsAvailable(Person nullable) {
-        return nullable == null;
+    private boolean isAlreadyClient(Client client) {
+        return client != null;
     }
 
 }

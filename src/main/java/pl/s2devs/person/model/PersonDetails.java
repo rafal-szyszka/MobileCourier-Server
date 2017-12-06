@@ -1,6 +1,7 @@
 package pl.s2devs.person.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by rafal on 29.11.17.
@@ -9,22 +10,26 @@ import javax.persistence.*;
 public class PersonDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long detailsId;
+    private Long personDetailsId;
 
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String phoneNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @NotNull
     @JoinColumn(name = "address_id")
     private Address address;
 
-    public Long getDetailsId() {
-        return detailsId;
+    public Long getPersonDetailsId() {
+        return personDetailsId;
     }
 
-    public void setDetailsId(Long detailsId) {
-        this.detailsId = detailsId;
+    public void setPersonDetailsId(Long personDetailsId) {
+        this.personDetailsId = personDetailsId;
     }
 
     public String getFirstName() {

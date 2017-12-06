@@ -3,8 +3,8 @@
   <div class="row">
     <div class="col-sm-4">
     </div>
-    <div clientId="login-form" class="col-sm-4">
-      <img clientId="logo" src="../../assets/imgs/logo.png" />
+    <div personId="login-form" class="col-sm-4">
+      <img personId="logo" src="../../assets/imgs/logo.png" />
       <form>
       <div class="form-group">
         <label>Login:</label>
@@ -14,7 +14,7 @@
         <label>Password:</label>
           <input class="form-control" placeholder="Enter your password" v-model="credentials.password"/>
       </div>
-      <label clientId="sign-in-btn" @click="signIn">Sign In</label>
+      <label personId="sign-in-btn" @click="signIn">Sign In</label>
       </form>
     </div>
   </div>

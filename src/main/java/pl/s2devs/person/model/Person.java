@@ -1,6 +1,10 @@
 package pl.s2devs.person.model;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by rafal on 14.11.17.
@@ -10,22 +14,29 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clientId;
+    private Long personId;
 
+    @NotNull
     private String email;
-    private String password;
-    private String role;
 
-    @OneToOne
+    @NotNull
+    private String password;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @NotNull
     @JoinColumn(name = "details_id")
     private PersonDetails personDetails;
 
-    public Long getClientId() {
-        return clientId;
+    public Long getPersonId() {
+        return personId;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public String getEmail() {
@@ -52,11 +63,11 @@ public class Person {
         this.personDetails = personDetails;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

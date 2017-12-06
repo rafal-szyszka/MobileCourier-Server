@@ -60,7 +60,7 @@ public class McServerApplication {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers("/test/**", "/client/new", "/courier/new").permitAll()
+                    .antMatchers("/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .httpBasic()
